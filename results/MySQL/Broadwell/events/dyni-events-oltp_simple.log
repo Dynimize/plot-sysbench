@@ -1,0 +1,112 @@
+threads:1
+
+ Performance counter stats for process id '12419':
+
+   112,009,444,143      instructions              #    1.02  insns per cycle          (57.19%)
+   110,236,824,341      cycles                                                        (57.16%)
+     2,813,004,392      r0280                                                         (57.15%)
+    39,214,853,549      r0380                                                         (57.16%)
+         6,107,874      r0185                                                         (42.85%)
+        46,556,201      r00C5                                                         (42.87%)
+    12,338,189,997      r01C4                                                         (42.86%)
+
+      55.000684018 seconds time elapsed
+
+threads:2
+
+ Performance counter stats for process id '12419':
+
+   205,807,665,947      instructions              #    0.97  insns per cycle          (57.07%)
+   213,098,377,212      cycles                                                        (56.93%)
+     5,615,181,031      r0280                                                         (57.12%)
+    74,507,557,071      r0380                                                         (57.22%)
+        14,046,996      r0185                                                         (43.07%)
+        92,214,569      r00C5                                                         (42.89%)
+    22,679,840,008      r01C4                                                         (42.79%)
+
+      55.000779014 seconds time elapsed
+
+threads:4
+
+ Performance counter stats for process id '12419':
+
+   375,401,483,172      instructions              #    0.91  insns per cycle          (57.36%)
+   410,382,055,223      cycles                                                        (57.22%)
+    11,248,771,700      r0280                                                         (57.02%)
+   141,989,875,691      r0380                                                         (56.88%)
+        37,142,862      r0185                                                         (42.79%)
+       187,460,763      r00C5                                                         (42.93%)
+    41,248,649,082      r01C4                                                         (43.16%)
+
+      55.000739862 seconds time elapsed
+
+threads:8
+
+ Performance counter stats for process id '12419':
+
+   446,758,798,416      instructions              #    0.67  insns per cycle          (57.11%)
+   662,857,382,900      cycles                                                        (56.76%)
+    12,258,785,180      r0280                                                         (56.79%)
+   169,685,698,120      r0380                                                         (57.08%)
+       444,531,524      r0185                                                         (43.26%)
+       251,080,962      r00C5                                                         (43.22%)
+    50,045,068,832      r01C4                                                         (42.86%)
+
+      55.001052257 seconds time elapsed
+
+threads:16
+
+ Performance counter stats for process id '12419':
+
+   443,466,049,937      instructions              #    0.67  insns per cycle          (56.11%)
+   664,959,755,738      cycles                                                        (57.25%)
+    12,259,634,663      r0280                                                         (57.29%)
+   169,734,835,477      r0380                                                         (57.99%)
+       458,221,889      r0185                                                         (42.76%)
+       268,055,972      r00C5                                                         (42.72%)
+    49,677,606,338      r01C4                                                         (41.99%)
+
+      55.000757163 seconds time elapsed
+
+threads:32
+
+ Performance counter stats for process id '12419':
+
+   440,289,713,046      instructions              #    0.66  insns per cycle          (56.15%)
+   668,091,804,883      cycles                                                        (56.63%)
+    13,064,332,680      r0280                                                         (56.91%)
+   173,950,583,055      r0380                                                         (58.00%)
+       451,411,690      r0185                                                         (43.39%)
+       304,591,342      r00C5                                                         (43.11%)
+    49,294,515,419      r01C4                                                         (42.02%)
+
+      55.000708160 seconds time elapsed
+
+threads:64
+
+ Performance counter stats for process id '12419':
+
+   403,192,649,923      instructions              #    0.60  insns per cycle          (59.10%)
+   669,367,783,951      cycles                                                        (58.05%)
+    13,382,876,552      r0280                                                         (56.84%)
+   165,219,140,940      r0380                                                         (55.87%)
+       510,900,402      r0185                                                         (41.96%)
+       334,828,057      r00C5                                                         (43.22%)
+    45,080,636,861      r01C4                                                         (44.18%)
+
+      55.000745003 seconds time elapsed
+
+threads:128
+
+ Performance counter stats for process id '12419':
+
+   446,352,945,992      instructions              #    0.55  insns per cycle          (57.06%)
+   812,222,329,846      cycles                                                        (57.14%)
+    13,751,318,621      r0280                                                         (57.14%)
+   177,082,947,771      r0380                                                         (57.22%)
+        89,008,486      r0185                                                         (42.92%)
+       386,924,036      r00C5                                                         (42.95%)
+    49,303,838,865      r01C4                                                         (42.88%)
+
+      55.001439889 seconds time elapsed
+

@@ -1,0 +1,112 @@
+threads:1
+
+ Performance counter stats for process id '30453':
+
+   268,034,322,646      instructions              #    1.34  insns per cycle          (57.29%)
+   199,450,108,273      cycles                                                        (57.26%)
+     1,140,888,564      r0280                                                         (57.18%)
+    65,457,102,943      r0380                                                         (57.08%)
+         5,210,547      r0185                                                         (42.75%)
+       247,288,923      r00C5                                                         (42.84%)
+    35,445,898,543      r01C4                                                         (42.94%)
+
+      55.000548887 seconds time elapsed
+
+threads:2
+
+ Performance counter stats for process id '30453':
+
+   537,782,309,021      instructions              #    1.44  insns per cycle          (57.21%)
+   372,178,932,709      cycles                                                        (57.01%)
+     4,464,913,517      r0280                                                         (57.10%)
+   124,737,362,754      r0380                                                         (57.01%)
+        40,915,506      r0185                                                         (42.99%)
+       528,043,038      r00C5                                                         (42.91%)
+    68,872,830,083      r01C4                                                         (43.00%)
+
+      55.000532804 seconds time elapsed
+
+threads:4
+
+ Performance counter stats for process id '30453':
+
+   965,372,441,758      instructions              #    1.36  insns per cycle          (57.18%)
+   707,262,647,605      cycles                                                        (57.08%)
+    10,055,843,027      r0280                                                         (57.13%)
+   223,358,395,050      r0380                                                         (57.10%)
+       124,582,139      r0185                                                         (42.92%)
+     1,070,226,321      r00C5                                                         (42.88%)
+   122,061,545,933      r01C4                                                         (42.91%)
+
+      55.000520157 seconds time elapsed
+
+threads:8
+
+ Performance counter stats for process id '30453':
+
+ 1,108,448,802,013      instructions              #    0.90  insns per cycle          (57.24%)
+ 1,227,486,432,947      cycles                                                        (57.37%)
+    17,147,371,923      r0280                                                         (57.17%)
+   333,115,874,566      r0380                                                         (57.16%)
+       199,340,805      r0185                                                         (42.63%)
+     1,609,240,038      r00C5                                                         (42.84%)
+   139,823,907,565      r01C4                                                         (42.84%)
+
+      55.000589795 seconds time elapsed
+
+threads:16
+
+ Performance counter stats for process id '30453':
+
+ 1,104,110,912,078      instructions              #    0.86  insns per cycle          (57.12%)
+ 1,286,983,241,952      cycles                                                        (57.18%)
+    19,716,288,384      r0280                                                         (57.14%)
+   348,381,580,317      r0380                                                         (57.15%)
+       198,050,497      r0185                                                         (42.80%)
+     1,735,658,511      r00C5                                                         (42.87%)
+   139,080,383,149      r01C4                                                         (42.86%)
+
+      55.000594944 seconds time elapsed
+
+threads:32
+
+ Performance counter stats for process id '30453':
+
+ 1,174,212,187,115      instructions              #    0.92  insns per cycle          (54.40%)
+ 1,280,392,379,820      cycles                                                        (55.73%)
+    14,955,307,748      r0280                                                         (57.50%)
+   330,143,358,362      r0380                                                         (59.12%)
+       215,908,202      r0185                                                         (44.28%)
+     1,813,519,477      r00C5                                                         (42.51%)
+   144,469,331,245      r01C4                                                         (40.89%)
+
+      55.000519758 seconds time elapsed
+
+threads:64
+
+ Performance counter stats for process id '30453':
+
+ 1,162,385,017,981      instructions              #    0.91  insns per cycle          (52.45%)
+ 1,273,209,061,088      cycles                                                        (54.90%)
+    15,343,816,118      r0280                                                         (57.76%)
+   332,467,060,315      r0380                                                         (60.65%)
+       228,651,572      r0185                                                         (45.12%)
+     1,811,262,850      r00C5                                                         (42.27%)
+   141,752,458,505      r01C4                                                         (39.37%)
+
+      55.000542927 seconds time elapsed
+
+threads:128
+
+ Performance counter stats for process id '30453':
+
+ 1,078,863,939,503      instructions              #    0.88  insns per cycle          (58.21%)
+ 1,228,942,084,966      cycles                                                        (57.42%)
+    15,448,532,550      r0280                                                         (56.98%)
+   315,857,992,597      r0380                                                         (56.58%)
+       236,599,607      r0185                                                         (42.64%)
+     1,656,871,797      r00C5                                                         (43.11%)
+   129,677,989,750      r01C4                                                         (43.50%)
+
+      55.000569100 seconds time elapsed
+

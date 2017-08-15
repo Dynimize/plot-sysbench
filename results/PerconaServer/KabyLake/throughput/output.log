@@ -1,0 +1,2130 @@
+nohup: ignoring input
++ tableSize=1000000
++ numTables=10
++ pwd=password
++ dbName=test
++ user=root
++ readOnly=on
++ measureTime=60
++ warmupIncrementTime=30
++ events=false
++ pathToLuas=/usr/share/sysbench/tests/include/oltp_legacy
++ cpuUsage=false
++ useTaskSet=false
++ power=false
++ oltpTest=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua
++ oltp_simpleTest=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua
++ deleteTest=/usr/share/sysbench/tests/include/oltp_legacy/delete.lua
++ insertTest=/usr/share/sysbench/tests/include/oltp_legacy/insert.lua
++ selectTest=/usr/share/sysbench/tests/include/oltp_legacy/select.lua
++ select_random_pointsTest=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua
++ select_random_rangesTest=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua
++ update_indexTest=/usr/share/sysbench/tests/include/oltp_legacy/update_index.lua
++ update_non_indexTest=/usr/share/sysbench/tests/include/oltp_legacy/update_non_index.lua
++ parallel_prepare=/usr/share/sysbench/tests/include/oltp_legacy/parallel_prepare.lua
++ cycles=cycles
++ instructions=instructions
++ icacheMisses=r0280
++ instructionsFetched=r0380
++ itlbMisses=r0185
++ condBranchMiss=r00C5
++ condBranch=r01C4
+++ cat /proc/cpuinfo
+++ grep -cP '^processor\t:'
++ numCPUs=8
++ lessTime=55
++ sysbenchTaskset=
++ dyni -stop
+Dynimizer is not running
++ tasksetVars
++ '[' false = true ']'
++ initPowerBaseline
++ '[' false = true ']'
++ runAndPlot /usr/share/sysbench/tests/include/oltp_legacy/oltp.lua oltp
++ test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua
++ name=oltp
++ echo RUN WITH DYNIMIZER
+RUN WITH DYNIMIZER
++ prepare
++ service mysqld restart
+Failed to restart mysqld.service: Unit mysqld.service not found.
++ service mysql restart
+++ pidof mysqld
++ renice -20 28396
+28396 (process ID) old priority 0, new priority -20
++ '[' false = true ']'
++ mysql -u root --password=password -e 'DROP DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -u root --password=password -e 'CREATE DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/parallel_prepare.lua --num-threads=8 --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --db-driver=mysql prepare
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.8 (using bundled LuaJIT 2.1.0-beta2)
+
+Creating table 'sbtest1'...
+Inserting 1000000 records into 'sbtest1'
+Creating secondary indexes on 'sbtest1'...
+Creating table 'sbtest2'...
+Inserting 1000000 records into 'sbtest2'
+Creating secondary indexes on 'sbtest2'...
+Creating table 'sbtest3'...
+Inserting 1000000 records into 'sbtest3'
+Creating secondary indexes on 'sbtest3'...
+Creating table 'sbtest4'...
+Inserting 1000000 records into 'sbtest4'
+Creating secondary indexes on 'sbtest4'...
+Creating table 'sbtest5'...
+Inserting 1000000 records into 'sbtest5'
+Creating secondary indexes on 'sbtest5'...
+Creating table 'sbtest6'...
+Inserting 1000000 records into 'sbtest6'
+Creating secondary indexes on 'sbtest6'...
+Creating table 'sbtest7'...
+Inserting 1000000 records into 'sbtest7'
+Creating secondary indexes on 'sbtest7'...
+Creating table 'sbtest8'...
+Inserting 1000000 records into 'sbtest8'
+Creating secondary indexes on 'sbtest8'...
+Creating table 'sbtest9'...
+Inserting 1000000 records into 'sbtest9'
+Creating secondary indexes on 'sbtest9'...
+Creating table 'sbtest10'...
+Inserting 1000000 records into 'sbtest10'
+Creating secondary indexes on 'sbtest10'...
++ dyni -start
+Dynimizer started
++ run dyni /usr/share/sysbench/tests/include/oltp_legacy/oltp.lua oltp
++ prefix=dyni
++ powerLog=dyni-power.log
++ eventsLog=dyni-events.log
++ cpuUsageLog=dyni-cpuUsage.log
++ sysbenchLog=dyni.log
++ powerCsv=dyni-power.csv
++ eventsCsv=dyni-events.csv
++ cpuUsageCsv=dyni-cpuUsage.csv
++ sysbenchCsv=dyni.csv
++ rm -f dyni-power.log dyni-events.log dyni-cpuUsage.log dyni.log
++ rm -f dyni-power.csv dyni-events.csv dyni-cpuUsage.csv dyni.csv powerBaseline.csv
++ warmup
++ echo Performing warmup...
+Performing warmup...
++ checkDyniIsRunning
++ sleep 1
++ dyni -status
++ grep 'Dynimizer is running'
++ '[' 0 = 0 ']'
++ warmupCount=0
++ dynimizing=true
++ keepRunning=true
++ count=0
++ '[' 0 -lt 0 ']'
++ '[' 0 -eq 0 ']'
++ count=1
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=30 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
++ '[' true = true ']'
++ checkMysqldIsDynimized
++ sleep 1
+++ pidof mysqld
++ pid=28396
++ dyni -status
++ grep 'mysqld, pid: 28396, dynimized'
++ '[' 0 = 0 ']'
++ warmupCount=1
++ '[' 1 -lt 1 ']'
++ '[' 1 -eq 0 ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=1 for dyni
+run sysbench with --threads=1 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 28396, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=1 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=2 for dyni
+run sysbench with --threads=2 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 28396, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=2 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=4 for dyni
+run sysbench with --threads=4 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 28396, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=4 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=8 for dyni
+run sysbench with --threads=8 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 28396, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=8 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=16 for dyni
+run sysbench with --threads=16 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 28396, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=16 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=32 for dyni
+run sysbench with --threads=32 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 28396, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=64 for dyni
+run sysbench with --threads=64 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 28396, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=64 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=128 for dyni
+run sysbench with --threads=128 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 28396, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=128 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ awkCmd='{if(NR>1){print $1 "\t" $2/60}}'
++ cat dyni.log
++ egrep 'threads:|total number of events:'
++ tr -d '\n'
++ sed 's/Number of threads: /\n/g'
++ sed 's/total number of events://g'
++ awk '{if(NR>1){print $1 "\t" $2/60}}'
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ dyni -stop
+Dynimizer shutting down
++ echo RUN WITHOUT DYNIMIZER
+RUN WITHOUT DYNIMIZER
++ prepare
++ service mysqld restart
+Failed to restart mysqld.service: Unit mysqld.service not found.
++ service mysql restart
+++ pidof mysqld
++ renice -20 30724
+30724 (process ID) old priority 0, new priority -20
++ '[' false = true ']'
++ mysql -u root --password=password -e 'DROP DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -u root --password=password -e 'CREATE DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/parallel_prepare.lua --num-threads=8 --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --db-driver=mysql prepare
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.8 (using bundled LuaJIT 2.1.0-beta2)
+
+Creating table 'sbtest1'...
+Inserting 1000000 records into 'sbtest1'
+Creating secondary indexes on 'sbtest1'...
+Creating table 'sbtest2'...
+Inserting 1000000 records into 'sbtest2'
+Creating secondary indexes on 'sbtest2'...
+Creating table 'sbtest3'...
+Inserting 1000000 records into 'sbtest3'
+Creating secondary indexes on 'sbtest3'...
+Creating table 'sbtest4'...
+Inserting 1000000 records into 'sbtest4'
+Creating secondary indexes on 'sbtest4'...
+Creating table 'sbtest5'...
+Inserting 1000000 records into 'sbtest5'
+Creating secondary indexes on 'sbtest5'...
+Creating table 'sbtest6'...
+Inserting 1000000 records into 'sbtest6'
+Creating secondary indexes on 'sbtest6'...
+Creating table 'sbtest7'...
+Inserting 1000000 records into 'sbtest7'
+Creating secondary indexes on 'sbtest7'...
+Creating table 'sbtest8'...
+Inserting 1000000 records into 'sbtest8'
+Creating secondary indexes on 'sbtest8'...
+Creating table 'sbtest9'...
+Inserting 1000000 records into 'sbtest9'
+Creating secondary indexes on 'sbtest9'...
+Creating table 'sbtest10'...
+Inserting 1000000 records into 'sbtest10'
+Creating secondary indexes on 'sbtest10'...
++ run noDyni /usr/share/sysbench/tests/include/oltp_legacy/oltp.lua oltp
++ prefix=noDyni
++ powerLog=noDyni-power.log
++ eventsLog=noDyni-events.log
++ cpuUsageLog=noDyni-cpuUsage.log
++ sysbenchLog=noDyni.log
++ powerCsv=noDyni-power.csv
++ eventsCsv=noDyni-events.csv
++ cpuUsageCsv=noDyni-cpuUsage.csv
++ sysbenchCsv=noDyni.csv
++ rm -f noDyni-power.log noDyni-events.log noDyni-cpuUsage.log noDyni.log
++ rm -f noDyni-power.csv noDyni-events.csv noDyni-cpuUsage.csv noDyni.csv powerBaseline.csv
++ warmup
++ echo Performing warmup...
+Performing warmup...
++ checkDyniIsRunning
++ sleep 1
++ dyni -status
++ grep 'Dynimizer is running'
++ '[' 1 = 0 ']'
++ keepRunning=true
++ count=0
++ '[' 0 -lt 1 ']'
++ count=1
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=30 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
++ '[' true = true ']'
++ checkMysqldIsDynimized
++ sleep 1
+++ pidof mysqld
++ pid=30724
++ dyni -status
++ grep 'mysqld, pid: 30724, dynimized'
++ '[' 1 = 0 ']'
++ '[' 1 -lt 1 ']'
++ '[' 1 -eq 0 ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=1 for noDyni
+run sysbench with --threads=1 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=1 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=2 for noDyni
+run sysbench with --threads=2 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=2 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=4 for noDyni
+run sysbench with --threads=4 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=4 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=8 for noDyni
+run sysbench with --threads=8 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=8 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=16 for noDyni
+run sysbench with --threads=16 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=16 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=32 for noDyni
+run sysbench with --threads=32 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=64 for noDyni
+run sysbench with --threads=64 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=64 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=128 for noDyni
+run sysbench with --threads=128 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=128 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ awkCmd='{if(NR>1){print $1 "\t" $2/60}}'
++ cat noDyni.log
++ egrep 'threads:|total number of events:'
++ tr -d '\n'
++ sed 's/Number of threads: /\n/g'
++ sed 's/total number of events://g'
++ awk '{if(NR>1){print $1 "\t" $2/60}}'
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ echo plotting results .svg files
+plotting results .svg files
++ gnuplot sysbenchGraph
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ mv dyni.log dyni-oltp.log
++ mv noDyni.log noDyni-oltp.log
++ mv dyni-events.log dyni-events-oltp.log
++ mv noDyni-events.log noDyni-events-oltp.log
++ mv dyni-cpuUsage.log dyni-cpuUsage-oltp.log
++ mv noDyni-cpuUsage.log noDyni-cpuUsage-oltp.log
++ mv dyni-power.log dyni-power-oltp.log
++ mv noDyni-power.log noDyni-power-oltp.log
++ cp dyni.csv dyni-oltp.csv
++ cp noDyni.csv noDyni-oltp.csv
++ cp dyni-events.csv dyni-events-oltp.csv
++ cp noDyni-events.csv noDyni-events-oltp.csv
++ cp dyni-cpuUsage.csv dyni-cpuUsage-oltp.csv
++ cp noDyni-cpuUsage.csv noDyni-cpuUsage-oltp.csv
++ cp dyni-power.csv dyni-power-oltp.csv
++ cp noDyni-power.csv noDyni-power-oltp.csv
++ mv throughput.svg throughput-oltp.svg
++ mv IPC.svg IPC-oltp.svg
++ mv branchMisses.svg branchMisses-oltp.svg
++ mv icacheMisses.svg icacheMisses-oltp.svg
++ mv itlbMisses.svg itlbMisses-oltp.svg
++ mv transactionsPerCycle.svg transactionsPerCycle-oltp.svg
++ mv cpuUsage.svg cpuUsage-oltp.svg
++ mv cpuUsageRelativeChange.svg cpuUsageRelativeChange-oltp.svg
++ mv cpuUsageAbsoluteChange.svg cpuUsageAbsoluteChange-oltp.svg
++ mv power.svg power-oltp.svg
++ mv powerTotalRelativeChange.svg powerTotalRelativeChange-oltp.svg
++ mv powerTotalAbsoluteChange.svg powerTotalAbsoluteChange-oltp.svg
++ mv powerIsolateRelativeChange.svg powerIsolateRelativeChange-oltp.svg
++ sleep 60
++ runAndPlot /usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua oltp_simple
++ test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua
++ name=oltp_simple
++ echo RUN WITH DYNIMIZER
+RUN WITH DYNIMIZER
++ prepare
++ service mysqld restart
+Failed to restart mysqld.service: Unit mysqld.service not found.
++ service mysql restart
+++ pidof mysqld
++ renice -20 581
+581 (process ID) old priority 0, new priority -20
++ '[' false = true ']'
++ mysql -u root --password=password -e 'DROP DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -u root --password=password -e 'CREATE DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/parallel_prepare.lua --num-threads=8 --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --db-driver=mysql prepare
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.8 (using bundled LuaJIT 2.1.0-beta2)
+
+Creating table 'sbtest1'...
+Inserting 1000000 records into 'sbtest1'
+Creating secondary indexes on 'sbtest1'...
+Creating table 'sbtest2'...
+Inserting 1000000 records into 'sbtest2'
+Creating secondary indexes on 'sbtest2'...
+Creating table 'sbtest3'...
+Inserting 1000000 records into 'sbtest3'
+Creating secondary indexes on 'sbtest3'...
+Creating table 'sbtest4'...
+Inserting 1000000 records into 'sbtest4'
+Creating secondary indexes on 'sbtest4'...
+Creating table 'sbtest5'...
+Inserting 1000000 records into 'sbtest5'
+Creating secondary indexes on 'sbtest5'...
+Creating table 'sbtest6'...
+Inserting 1000000 records into 'sbtest6'
+Creating secondary indexes on 'sbtest6'...
+Creating table 'sbtest7'...
+Inserting 1000000 records into 'sbtest7'
+Creating secondary indexes on 'sbtest7'...
+Creating table 'sbtest8'...
+Inserting 1000000 records into 'sbtest8'
+Creating secondary indexes on 'sbtest8'...
+Creating table 'sbtest9'...
+Inserting 1000000 records into 'sbtest9'
+Creating secondary indexes on 'sbtest9'...
+Creating table 'sbtest10'...
+Inserting 1000000 records into 'sbtest10'
+Creating secondary indexes on 'sbtest10'...
++ dyni -start
+Dynimizer started
++ run dyni /usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua oltp_simple
++ prefix=dyni
++ powerLog=dyni-power.log
++ eventsLog=dyni-events.log
++ cpuUsageLog=dyni-cpuUsage.log
++ sysbenchLog=dyni.log
++ powerCsv=dyni-power.csv
++ eventsCsv=dyni-events.csv
++ cpuUsageCsv=dyni-cpuUsage.csv
++ sysbenchCsv=dyni.csv
++ rm -f dyni-power.log dyni-events.log dyni-cpuUsage.log dyni.log
++ rm -f dyni-power.csv dyni-events.csv dyni-cpuUsage.csv dyni.csv powerBaseline.csv
++ warmup
++ echo Performing warmup...
+Performing warmup...
++ checkDyniIsRunning
++ sleep 1
++ dyni -status
++ grep 'Dynimizer is running'
++ '[' 0 = 0 ']'
++ warmupCount=0
++ dynimizing=true
++ keepRunning=true
++ count=0
++ '[' 0 -lt 0 ']'
++ '[' 0 -eq 0 ']'
++ count=1
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=30 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
++ '[' true = true ']'
++ checkMysqldIsDynimized
++ sleep 1
+++ pidof mysqld
++ pid=581
++ dyni -status
++ grep 'mysqld, pid: 581, dynimized'
++ '[' 0 = 0 ']'
++ warmupCount=1
++ '[' 1 -lt 1 ']'
++ '[' 1 -eq 0 ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=1 for dyni
+run sysbench with --threads=1 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 581, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=1 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=2 for dyni
+run sysbench with --threads=2 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 581, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=2 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=4 for dyni
+run sysbench with --threads=4 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 581, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=4 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=8 for dyni
+run sysbench with --threads=8 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 581, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=8 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=16 for dyni
+run sysbench with --threads=16 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 581, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=16 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=32 for dyni
+run sysbench with --threads=32 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 581, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=64 for dyni
+run sysbench with --threads=64 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 581, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=64 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=128 for dyni
+run sysbench with --threads=128 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 581, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=128 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ awkCmd='{if(NR>1){print $1 "\t" $2/60}}'
++ cat dyni.log
++ egrep 'threads:|total number of events:'
++ tr -d '\n'
++ sed 's/Number of threads: /\n/g'
++ sed 's/total number of events://g'
++ awk '{if(NR>1){print $1 "\t" $2/60}}'
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ dyni -stop
+Dynimizer shutting down
++ echo RUN WITHOUT DYNIMIZER
+RUN WITHOUT DYNIMIZER
++ prepare
++ service mysqld restart
+Failed to restart mysqld.service: Unit mysqld.service not found.
++ service mysql restart
+++ pidof mysqld
++ renice -20 2953
+2953 (process ID) old priority 0, new priority -20
++ '[' false = true ']'
++ mysql -u root --password=password -e 'DROP DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -u root --password=password -e 'CREATE DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/parallel_prepare.lua --num-threads=8 --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --db-driver=mysql prepare
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.8 (using bundled LuaJIT 2.1.0-beta2)
+
+Creating table 'sbtest1'...
+Inserting 1000000 records into 'sbtest1'
+Creating secondary indexes on 'sbtest1'...
+Creating table 'sbtest2'...
+Inserting 1000000 records into 'sbtest2'
+Creating secondary indexes on 'sbtest2'...
+Creating table 'sbtest3'...
+Inserting 1000000 records into 'sbtest3'
+Creating secondary indexes on 'sbtest3'...
+Creating table 'sbtest4'...
+Inserting 1000000 records into 'sbtest4'
+Creating secondary indexes on 'sbtest4'...
+Creating table 'sbtest5'...
+Inserting 1000000 records into 'sbtest5'
+Creating secondary indexes on 'sbtest5'...
+Creating table 'sbtest6'...
+Inserting 1000000 records into 'sbtest6'
+Creating secondary indexes on 'sbtest6'...
+Creating table 'sbtest7'...
+Inserting 1000000 records into 'sbtest7'
+Creating secondary indexes on 'sbtest7'...
+Creating table 'sbtest8'...
+Inserting 1000000 records into 'sbtest8'
+Creating secondary indexes on 'sbtest8'...
+Creating table 'sbtest9'...
+Inserting 1000000 records into 'sbtest9'
+Creating secondary indexes on 'sbtest9'...
+Creating table 'sbtest10'...
+Inserting 1000000 records into 'sbtest10'
+Creating secondary indexes on 'sbtest10'...
++ run noDyni /usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua oltp_simple
++ prefix=noDyni
++ powerLog=noDyni-power.log
++ eventsLog=noDyni-events.log
++ cpuUsageLog=noDyni-cpuUsage.log
++ sysbenchLog=noDyni.log
++ powerCsv=noDyni-power.csv
++ eventsCsv=noDyni-events.csv
++ cpuUsageCsv=noDyni-cpuUsage.csv
++ sysbenchCsv=noDyni.csv
++ rm -f noDyni-power.log noDyni-events.log noDyni-cpuUsage.log noDyni.log
++ rm -f noDyni-power.csv noDyni-events.csv noDyni-cpuUsage.csv noDyni.csv powerBaseline.csv
++ warmup
++ echo Performing warmup...
+Performing warmup...
++ checkDyniIsRunning
++ sleep 1
++ dyni -status
++ grep 'Dynimizer is running'
++ '[' 1 = 0 ']'
++ keepRunning=true
++ count=0
++ '[' 0 -lt 1 ']'
++ count=1
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=30 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
++ '[' true = true ']'
++ checkMysqldIsDynimized
++ sleep 1
+++ pidof mysqld
++ pid=2953
++ dyni -status
++ grep 'mysqld, pid: 2953, dynimized'
++ '[' 1 = 0 ']'
++ '[' 1 -lt 1 ']'
++ '[' 1 -eq 0 ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=1 for noDyni
+run sysbench with --threads=1 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=1 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=2 for noDyni
+run sysbench with --threads=2 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=2 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=4 for noDyni
+run sysbench with --threads=4 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=4 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=8 for noDyni
+run sysbench with --threads=8 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=8 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=16 for noDyni
+run sysbench with --threads=16 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=16 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=32 for noDyni
+run sysbench with --threads=32 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=64 for noDyni
+run sysbench with --threads=64 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=64 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=128 for noDyni
+run sysbench with --threads=128 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/oltp_simple.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=128 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ awkCmd='{if(NR>1){print $1 "\t" $2/60}}'
++ cat noDyni.log
++ egrep 'threads:|total number of events:'
++ tr -d '\n'
++ sed 's/Number of threads: /\n/g'
++ sed 's/total number of events://g'
++ awk '{if(NR>1){print $1 "\t" $2/60}}'
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ echo plotting results .svg files
+plotting results .svg files
++ gnuplot sysbenchGraph
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ mv dyni.log dyni-oltp_simple.log
++ mv noDyni.log noDyni-oltp_simple.log
++ mv dyni-events.log dyni-events-oltp_simple.log
++ mv noDyni-events.log noDyni-events-oltp_simple.log
++ mv dyni-cpuUsage.log dyni-cpuUsage-oltp_simple.log
++ mv noDyni-cpuUsage.log noDyni-cpuUsage-oltp_simple.log
++ mv dyni-power.log dyni-power-oltp_simple.log
++ mv noDyni-power.log noDyni-power-oltp_simple.log
++ cp dyni.csv dyni-oltp_simple.csv
++ cp noDyni.csv noDyni-oltp_simple.csv
++ cp dyni-events.csv dyni-events-oltp_simple.csv
++ cp noDyni-events.csv noDyni-events-oltp_simple.csv
++ cp dyni-cpuUsage.csv dyni-cpuUsage-oltp_simple.csv
++ cp noDyni-cpuUsage.csv noDyni-cpuUsage-oltp_simple.csv
++ cp dyni-power.csv dyni-power-oltp_simple.csv
++ cp noDyni-power.csv noDyni-power-oltp_simple.csv
++ mv throughput.svg throughput-oltp_simple.svg
++ mv IPC.svg IPC-oltp_simple.svg
++ mv branchMisses.svg branchMisses-oltp_simple.svg
++ mv icacheMisses.svg icacheMisses-oltp_simple.svg
++ mv itlbMisses.svg itlbMisses-oltp_simple.svg
++ mv transactionsPerCycle.svg transactionsPerCycle-oltp_simple.svg
++ mv cpuUsage.svg cpuUsage-oltp_simple.svg
++ mv cpuUsageRelativeChange.svg cpuUsageRelativeChange-oltp_simple.svg
++ mv cpuUsageAbsoluteChange.svg cpuUsageAbsoluteChange-oltp_simple.svg
++ mv power.svg power-oltp_simple.svg
++ mv powerTotalRelativeChange.svg powerTotalRelativeChange-oltp_simple.svg
++ mv powerTotalAbsoluteChange.svg powerTotalAbsoluteChange-oltp_simple.svg
++ mv powerIsolateRelativeChange.svg powerIsolateRelativeChange-oltp_simple.svg
++ sleep 60
++ runAndPlot /usr/share/sysbench/tests/include/oltp_legacy/select.lua select
++ test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua
++ name=select
++ echo RUN WITH DYNIMIZER
+RUN WITH DYNIMIZER
++ prepare
++ service mysqld restart
+Failed to restart mysqld.service: Unit mysqld.service not found.
++ service mysql restart
+++ pidof mysqld
++ renice -20 5078
+5078 (process ID) old priority 0, new priority -20
++ '[' false = true ']'
++ mysql -u root --password=password -e 'DROP DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -u root --password=password -e 'CREATE DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/parallel_prepare.lua --num-threads=8 --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --db-driver=mysql prepare
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.8 (using bundled LuaJIT 2.1.0-beta2)
+
+Creating table 'sbtest1'...
+Inserting 1000000 records into 'sbtest1'
+Creating secondary indexes on 'sbtest1'...
+Creating table 'sbtest2'...
+Inserting 1000000 records into 'sbtest2'
+Creating secondary indexes on 'sbtest2'...
+Creating table 'sbtest3'...
+Inserting 1000000 records into 'sbtest3'
+Creating secondary indexes on 'sbtest3'...
+Creating table 'sbtest4'...
+Inserting 1000000 records into 'sbtest4'
+Creating secondary indexes on 'sbtest4'...
+Creating table 'sbtest5'...
+Inserting 1000000 records into 'sbtest5'
+Creating secondary indexes on 'sbtest5'...
+Creating table 'sbtest6'...
+Inserting 1000000 records into 'sbtest6'
+Creating secondary indexes on 'sbtest6'...
+Creating table 'sbtest7'...
+Inserting 1000000 records into 'sbtest7'
+Creating secondary indexes on 'sbtest7'...
+Creating table 'sbtest8'...
+Inserting 1000000 records into 'sbtest8'
+Creating secondary indexes on 'sbtest8'...
+Creating table 'sbtest9'...
+Inserting 1000000 records into 'sbtest9'
+Creating secondary indexes on 'sbtest9'...
+Creating table 'sbtest10'...
+Inserting 1000000 records into 'sbtest10'
+Creating secondary indexes on 'sbtest10'...
++ dyni -start
+Dynimizer started
++ run dyni /usr/share/sysbench/tests/include/oltp_legacy/select.lua select
++ prefix=dyni
++ powerLog=dyni-power.log
++ eventsLog=dyni-events.log
++ cpuUsageLog=dyni-cpuUsage.log
++ sysbenchLog=dyni.log
++ powerCsv=dyni-power.csv
++ eventsCsv=dyni-events.csv
++ cpuUsageCsv=dyni-cpuUsage.csv
++ sysbenchCsv=dyni.csv
++ rm -f dyni-power.log dyni-events.log dyni-cpuUsage.log dyni.log
++ rm -f dyni-power.csv dyni-events.csv dyni-cpuUsage.csv dyni.csv powerBaseline.csv
++ warmup
++ echo Performing warmup...
+Performing warmup...
++ checkDyniIsRunning
++ sleep 1
++ dyni -status
++ grep 'Dynimizer is running'
++ '[' 0 = 0 ']'
++ warmupCount=0
++ dynimizing=true
++ keepRunning=true
++ count=0
++ '[' 0 -lt 0 ']'
++ '[' 0 -eq 0 ']'
++ count=1
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=30 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
++ '[' true = true ']'
++ checkMysqldIsDynimized
++ sleep 1
+++ pidof mysqld
++ pid=5078
++ dyni -status
++ grep 'mysqld, pid: 5078, dynimized'
++ '[' 0 = 0 ']'
++ warmupCount=1
++ '[' 1 -lt 1 ']'
++ '[' 1 -eq 0 ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=1 for dyni
+run sysbench with --threads=1 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 5078, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=1 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=2 for dyni
+run sysbench with --threads=2 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 5078, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=2 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=4 for dyni
+run sysbench with --threads=4 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 5078, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=4 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=8 for dyni
+run sysbench with --threads=8 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 5078, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=8 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=16 for dyni
+run sysbench with --threads=16 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 5078, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=16 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=32 for dyni
+run sysbench with --threads=32 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 5078, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=64 for dyni
+run sysbench with --threads=64 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 5078, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=64 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=128 for dyni
+run sysbench with --threads=128 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 5078, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=128 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ awkCmd='{if(NR>1){print $1 "\t" $2/60}}'
++ cat dyni.log
++ egrep 'threads:|total number of events:'
++ tr -d '\n'
++ sed 's/Number of threads: /\n/g'
++ sed 's/total number of events://g'
++ awk '{if(NR>1){print $1 "\t" $2/60}}'
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ dyni -stop
+Dynimizer shutting down
++ echo RUN WITHOUT DYNIMIZER
+RUN WITHOUT DYNIMIZER
++ prepare
++ service mysqld restart
+Failed to restart mysqld.service: Unit mysqld.service not found.
++ service mysql restart
+++ pidof mysqld
++ renice -20 7455
+7455 (process ID) old priority 0, new priority -20
++ '[' false = true ']'
++ mysql -u root --password=password -e 'DROP DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -u root --password=password -e 'CREATE DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/parallel_prepare.lua --num-threads=8 --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --db-driver=mysql prepare
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.8 (using bundled LuaJIT 2.1.0-beta2)
+
+Creating table 'sbtest1'...
+Inserting 1000000 records into 'sbtest1'
+Creating secondary indexes on 'sbtest1'...
+Creating table 'sbtest2'...
+Inserting 1000000 records into 'sbtest2'
+Creating secondary indexes on 'sbtest2'...
+Creating table 'sbtest3'...
+Inserting 1000000 records into 'sbtest3'
+Creating secondary indexes on 'sbtest3'...
+Creating table 'sbtest4'...
+Inserting 1000000 records into 'sbtest4'
+Creating secondary indexes on 'sbtest4'...
+Creating table 'sbtest5'...
+Inserting 1000000 records into 'sbtest5'
+Creating secondary indexes on 'sbtest5'...
+Creating table 'sbtest6'...
+Inserting 1000000 records into 'sbtest6'
+Creating secondary indexes on 'sbtest6'...
+Creating table 'sbtest7'...
+Inserting 1000000 records into 'sbtest7'
+Creating secondary indexes on 'sbtest7'...
+Creating table 'sbtest8'...
+Inserting 1000000 records into 'sbtest8'
+Creating secondary indexes on 'sbtest8'...
+Creating table 'sbtest9'...
+Inserting 1000000 records into 'sbtest9'
+Creating secondary indexes on 'sbtest9'...
+Creating table 'sbtest10'...
+Inserting 1000000 records into 'sbtest10'
+Creating secondary indexes on 'sbtest10'...
++ run noDyni /usr/share/sysbench/tests/include/oltp_legacy/select.lua select
++ prefix=noDyni
++ powerLog=noDyni-power.log
++ eventsLog=noDyni-events.log
++ cpuUsageLog=noDyni-cpuUsage.log
++ sysbenchLog=noDyni.log
++ powerCsv=noDyni-power.csv
++ eventsCsv=noDyni-events.csv
++ cpuUsageCsv=noDyni-cpuUsage.csv
++ sysbenchCsv=noDyni.csv
++ rm -f noDyni-power.log noDyni-events.log noDyni-cpuUsage.log noDyni.log
++ rm -f noDyni-power.csv noDyni-events.csv noDyni-cpuUsage.csv noDyni.csv powerBaseline.csv
++ warmup
++ echo Performing warmup...
+Performing warmup...
++ checkDyniIsRunning
++ sleep 1
++ dyni -status
++ grep 'Dynimizer is running'
++ '[' 1 = 0 ']'
++ keepRunning=true
++ count=0
++ '[' 0 -lt 1 ']'
++ count=1
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=30 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
++ '[' true = true ']'
++ checkMysqldIsDynimized
++ sleep 1
+++ pidof mysqld
++ pid=7455
++ dyni -status
++ grep 'mysqld, pid: 7455, dynimized'
++ '[' 1 = 0 ']'
++ '[' 1 -lt 1 ']'
++ '[' 1 -eq 0 ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=1 for noDyni
+run sysbench with --threads=1 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=1 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=2 for noDyni
+run sysbench with --threads=2 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=2 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=4 for noDyni
+run sysbench with --threads=4 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=4 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=8 for noDyni
+run sysbench with --threads=8 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=8 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=16 for noDyni
+run sysbench with --threads=16 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=16 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=32 for noDyni
+run sysbench with --threads=32 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=64 for noDyni
+run sysbench with --threads=64 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=64 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=128 for noDyni
+run sysbench with --threads=128 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=128 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ awkCmd='{if(NR>1){print $1 "\t" $2/60}}'
++ cat noDyni.log
++ egrep 'threads:|total number of events:'
++ tr -d '\n'
++ sed 's/Number of threads: /\n/g'
++ sed 's/total number of events://g'
++ awk '{if(NR>1){print $1 "\t" $2/60}}'
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ echo plotting results .svg files
+plotting results .svg files
++ gnuplot sysbenchGraph
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ mv dyni.log dyni-select.log
++ mv noDyni.log noDyni-select.log
++ mv dyni-events.log dyni-events-select.log
++ mv noDyni-events.log noDyni-events-select.log
++ mv dyni-cpuUsage.log dyni-cpuUsage-select.log
++ mv noDyni-cpuUsage.log noDyni-cpuUsage-select.log
++ mv dyni-power.log dyni-power-select.log
++ mv noDyni-power.log noDyni-power-select.log
++ cp dyni.csv dyni-select.csv
++ cp noDyni.csv noDyni-select.csv
++ cp dyni-events.csv dyni-events-select.csv
++ cp noDyni-events.csv noDyni-events-select.csv
++ cp dyni-cpuUsage.csv dyni-cpuUsage-select.csv
++ cp noDyni-cpuUsage.csv noDyni-cpuUsage-select.csv
++ cp dyni-power.csv dyni-power-select.csv
++ cp noDyni-power.csv noDyni-power-select.csv
++ mv throughput.svg throughput-select.svg
++ mv IPC.svg IPC-select.svg
++ mv branchMisses.svg branchMisses-select.svg
++ mv icacheMisses.svg icacheMisses-select.svg
++ mv itlbMisses.svg itlbMisses-select.svg
++ mv transactionsPerCycle.svg transactionsPerCycle-select.svg
++ mv cpuUsage.svg cpuUsage-select.svg
++ mv cpuUsageRelativeChange.svg cpuUsageRelativeChange-select.svg
++ mv cpuUsageAbsoluteChange.svg cpuUsageAbsoluteChange-select.svg
++ mv power.svg power-select.svg
++ mv powerTotalRelativeChange.svg powerTotalRelativeChange-select.svg
++ mv powerTotalAbsoluteChange.svg powerTotalAbsoluteChange-select.svg
++ mv powerIsolateRelativeChange.svg powerIsolateRelativeChange-select.svg
++ sleep 60
++ runAndPlot /usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua select_random_points
++ test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua
++ name=select_random_points
++ echo RUN WITH DYNIMIZER
+RUN WITH DYNIMIZER
++ prepare
++ service mysqld restart
+Failed to restart mysqld.service: Unit mysqld.service not found.
++ service mysql restart
+++ pidof mysqld
++ renice -20 9623
+9623 (process ID) old priority 0, new priority -20
++ '[' false = true ']'
++ mysql -u root --password=password -e 'DROP DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -u root --password=password -e 'CREATE DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/parallel_prepare.lua --num-threads=8 --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --db-driver=mysql prepare
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.8 (using bundled LuaJIT 2.1.0-beta2)
+
+Creating table 'sbtest1'...
+Inserting 1000000 records into 'sbtest1'
+Creating secondary indexes on 'sbtest1'...
+Creating table 'sbtest2'...
+Inserting 1000000 records into 'sbtest2'
+Creating secondary indexes on 'sbtest2'...
+Creating table 'sbtest3'...
+Inserting 1000000 records into 'sbtest3'
+Creating secondary indexes on 'sbtest3'...
+Creating table 'sbtest4'...
+Inserting 1000000 records into 'sbtest4'
+Creating secondary indexes on 'sbtest4'...
+Creating table 'sbtest5'...
+Inserting 1000000 records into 'sbtest5'
+Creating secondary indexes on 'sbtest5'...
+Creating table 'sbtest6'...
+Inserting 1000000 records into 'sbtest6'
+Creating secondary indexes on 'sbtest6'...
+Creating table 'sbtest7'...
+Inserting 1000000 records into 'sbtest7'
+Creating secondary indexes on 'sbtest7'...
+Creating table 'sbtest8'...
+Inserting 1000000 records into 'sbtest8'
+Creating secondary indexes on 'sbtest8'...
+Creating table 'sbtest9'...
+Inserting 1000000 records into 'sbtest9'
+Creating secondary indexes on 'sbtest9'...
+Creating table 'sbtest10'...
+Inserting 1000000 records into 'sbtest10'
+Creating secondary indexes on 'sbtest10'...
++ dyni -start
+Dynimizer started
++ run dyni /usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua select_random_points
++ prefix=dyni
++ powerLog=dyni-power.log
++ eventsLog=dyni-events.log
++ cpuUsageLog=dyni-cpuUsage.log
++ sysbenchLog=dyni.log
++ powerCsv=dyni-power.csv
++ eventsCsv=dyni-events.csv
++ cpuUsageCsv=dyni-cpuUsage.csv
++ sysbenchCsv=dyni.csv
++ rm -f dyni-power.log dyni-events.log dyni-cpuUsage.log dyni.log
++ rm -f dyni-power.csv dyni-events.csv dyni-cpuUsage.csv dyni.csv powerBaseline.csv
++ warmup
++ echo Performing warmup...
+Performing warmup...
++ checkDyniIsRunning
++ sleep 1
++ dyni -status
++ grep 'Dynimizer is running'
++ '[' 0 = 0 ']'
++ warmupCount=0
++ dynimizing=true
++ keepRunning=true
++ count=0
++ '[' 0 -lt 0 ']'
++ '[' 0 -eq 0 ']'
++ count=1
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=30 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
++ '[' true = true ']'
++ checkMysqldIsDynimized
++ sleep 1
+++ pidof mysqld
++ pid=9623
++ dyni -status
++ grep 'mysqld, pid: 9623, dynimized'
++ '[' 0 = 0 ']'
++ warmupCount=1
++ '[' 1 -lt 1 ']'
++ '[' 1 -eq 0 ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=1 for dyni
+run sysbench with --threads=1 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 9623, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=1 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=2 for dyni
+run sysbench with --threads=2 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 9623, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=2 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=4 for dyni
+run sysbench with --threads=4 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 9623, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=4 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=8 for dyni
+run sysbench with --threads=8 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 9623, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=8 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=16 for dyni
+run sysbench with --threads=16 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 9623, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=16 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=32 for dyni
+run sysbench with --threads=32 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 9623, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=64 for dyni
+run sysbench with --threads=64 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 9623, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=64 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=128 for dyni
+run sysbench with --threads=128 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 9623, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=128 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ awkCmd='{if(NR>1){print $1 "\t" $2/60}}'
++ cat dyni.log
++ egrep 'threads:|total number of events:'
++ tr -d '\n'
++ sed 's/Number of threads: /\n/g'
++ sed 's/total number of events://g'
++ awk '{if(NR>1){print $1 "\t" $2/60}}'
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ dyni -stop
+Dynimizer shutting down
++ echo RUN WITHOUT DYNIMIZER
+RUN WITHOUT DYNIMIZER
++ prepare
++ service mysqld restart
+Failed to restart mysqld.service: Unit mysqld.service not found.
++ service mysql restart
+++ pidof mysqld
++ renice -20 11949
+11949 (process ID) old priority 0, new priority -20
++ '[' false = true ']'
++ mysql -u root --password=password -e 'DROP DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -u root --password=password -e 'CREATE DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/parallel_prepare.lua --num-threads=8 --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --db-driver=mysql prepare
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.8 (using bundled LuaJIT 2.1.0-beta2)
+
+Creating table 'sbtest1'...
+Inserting 1000000 records into 'sbtest1'
+Creating secondary indexes on 'sbtest1'...
+Creating table 'sbtest2'...
+Inserting 1000000 records into 'sbtest2'
+Creating secondary indexes on 'sbtest2'...
+Creating table 'sbtest3'...
+Inserting 1000000 records into 'sbtest3'
+Creating secondary indexes on 'sbtest3'...
+Creating table 'sbtest4'...
+Inserting 1000000 records into 'sbtest4'
+Creating secondary indexes on 'sbtest4'...
+Creating table 'sbtest5'...
+Inserting 1000000 records into 'sbtest5'
+Creating secondary indexes on 'sbtest5'...
+Creating table 'sbtest6'...
+Inserting 1000000 records into 'sbtest6'
+Creating secondary indexes on 'sbtest6'...
+Creating table 'sbtest7'...
+Inserting 1000000 records into 'sbtest7'
+Creating secondary indexes on 'sbtest7'...
+Creating table 'sbtest8'...
+Inserting 1000000 records into 'sbtest8'
+Creating secondary indexes on 'sbtest8'...
+Creating table 'sbtest9'...
+Inserting 1000000 records into 'sbtest9'
+Creating secondary indexes on 'sbtest9'...
+Creating table 'sbtest10'...
+Inserting 1000000 records into 'sbtest10'
+Creating secondary indexes on 'sbtest10'...
++ run noDyni /usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua select_random_points
++ prefix=noDyni
++ powerLog=noDyni-power.log
++ eventsLog=noDyni-events.log
++ cpuUsageLog=noDyni-cpuUsage.log
++ sysbenchLog=noDyni.log
++ powerCsv=noDyni-power.csv
++ eventsCsv=noDyni-events.csv
++ cpuUsageCsv=noDyni-cpuUsage.csv
++ sysbenchCsv=noDyni.csv
++ rm -f noDyni-power.log noDyni-events.log noDyni-cpuUsage.log noDyni.log
++ rm -f noDyni-power.csv noDyni-events.csv noDyni-cpuUsage.csv noDyni.csv powerBaseline.csv
++ warmup
++ echo Performing warmup...
+Performing warmup...
++ checkDyniIsRunning
++ sleep 1
++ dyni -status
++ grep 'Dynimizer is running'
++ '[' 1 = 0 ']'
++ keepRunning=true
++ count=0
++ '[' 0 -lt 1 ']'
++ count=1
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=30 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
++ '[' true = true ']'
++ checkMysqldIsDynimized
++ sleep 1
+++ pidof mysqld
++ pid=11949
++ dyni -status
++ grep 'mysqld, pid: 11949, dynimized'
++ '[' 1 = 0 ']'
++ '[' 1 -lt 1 ']'
++ '[' 1 -eq 0 ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=1 for noDyni
+run sysbench with --threads=1 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=1 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=2 for noDyni
+run sysbench with --threads=2 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=2 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=4 for noDyni
+run sysbench with --threads=4 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=4 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=8 for noDyni
+run sysbench with --threads=8 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=8 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=16 for noDyni
+run sysbench with --threads=16 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=16 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=32 for noDyni
+run sysbench with --threads=32 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=64 for noDyni
+run sysbench with --threads=64 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=64 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=128 for noDyni
+run sysbench with --threads=128 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_points.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=128 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ awkCmd='{if(NR>1){print $1 "\t" $2/60}}'
++ cat noDyni.log
++ egrep 'threads:|total number of events:'
++ tr -d '\n'
++ sed 's/Number of threads: /\n/g'
++ sed 's/total number of events://g'
++ awk '{if(NR>1){print $1 "\t" $2/60}}'
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ echo plotting results .svg files
+plotting results .svg files
++ gnuplot sysbenchGraph
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ mv dyni.log dyni-select_random_points.log
++ mv noDyni.log noDyni-select_random_points.log
++ mv dyni-events.log dyni-events-select_random_points.log
++ mv noDyni-events.log noDyni-events-select_random_points.log
++ mv dyni-cpuUsage.log dyni-cpuUsage-select_random_points.log
++ mv noDyni-cpuUsage.log noDyni-cpuUsage-select_random_points.log
++ mv dyni-power.log dyni-power-select_random_points.log
++ mv noDyni-power.log noDyni-power-select_random_points.log
++ cp dyni.csv dyni-select_random_points.csv
++ cp noDyni.csv noDyni-select_random_points.csv
++ cp dyni-events.csv dyni-events-select_random_points.csv
++ cp noDyni-events.csv noDyni-events-select_random_points.csv
++ cp dyni-cpuUsage.csv dyni-cpuUsage-select_random_points.csv
++ cp noDyni-cpuUsage.csv noDyni-cpuUsage-select_random_points.csv
++ cp dyni-power.csv dyni-power-select_random_points.csv
++ cp noDyni-power.csv noDyni-power-select_random_points.csv
++ mv throughput.svg throughput-select_random_points.svg
++ mv IPC.svg IPC-select_random_points.svg
++ mv branchMisses.svg branchMisses-select_random_points.svg
++ mv icacheMisses.svg icacheMisses-select_random_points.svg
++ mv itlbMisses.svg itlbMisses-select_random_points.svg
++ mv transactionsPerCycle.svg transactionsPerCycle-select_random_points.svg
++ mv cpuUsage.svg cpuUsage-select_random_points.svg
++ mv cpuUsageRelativeChange.svg cpuUsageRelativeChange-select_random_points.svg
++ mv cpuUsageAbsoluteChange.svg cpuUsageAbsoluteChange-select_random_points.svg
++ mv power.svg power-select_random_points.svg
++ mv powerTotalRelativeChange.svg powerTotalRelativeChange-select_random_points.svg
++ mv powerTotalAbsoluteChange.svg powerTotalAbsoluteChange-select_random_points.svg
++ mv powerIsolateRelativeChange.svg powerIsolateRelativeChange-select_random_points.svg
++ sleep 60
++ runAndPlot /usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua select_random_ranges
++ test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua
++ name=select_random_ranges
++ echo RUN WITH DYNIMIZER
+RUN WITH DYNIMIZER
++ prepare
++ service mysqld restart
+Failed to restart mysqld.service: Unit mysqld.service not found.
++ service mysql restart
+++ pidof mysqld
++ renice -20 14109
+14109 (process ID) old priority 0, new priority -20
++ '[' false = true ']'
++ mysql -u root --password=password -e 'DROP DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -u root --password=password -e 'CREATE DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/parallel_prepare.lua --num-threads=8 --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --db-driver=mysql prepare
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.8 (using bundled LuaJIT 2.1.0-beta2)
+
+Creating table 'sbtest1'...
+Inserting 1000000 records into 'sbtest1'
+Creating secondary indexes on 'sbtest1'...
+Creating table 'sbtest2'...
+Inserting 1000000 records into 'sbtest2'
+Creating secondary indexes on 'sbtest2'...
+Creating table 'sbtest3'...
+Inserting 1000000 records into 'sbtest3'
+Creating secondary indexes on 'sbtest3'...
+Creating table 'sbtest4'...
+Inserting 1000000 records into 'sbtest4'
+Creating secondary indexes on 'sbtest4'...
+Creating table 'sbtest5'...
+Inserting 1000000 records into 'sbtest5'
+Creating secondary indexes on 'sbtest5'...
+Creating table 'sbtest6'...
+Inserting 1000000 records into 'sbtest6'
+Creating secondary indexes on 'sbtest6'...
+Creating table 'sbtest7'...
+Inserting 1000000 records into 'sbtest7'
+Creating secondary indexes on 'sbtest7'...
+Creating table 'sbtest8'...
+Inserting 1000000 records into 'sbtest8'
+Creating secondary indexes on 'sbtest8'...
+Creating table 'sbtest9'...
+Inserting 1000000 records into 'sbtest9'
+Creating secondary indexes on 'sbtest9'...
+Creating table 'sbtest10'...
+Inserting 1000000 records into 'sbtest10'
+Creating secondary indexes on 'sbtest10'...
++ dyni -start
+Dynimizer started
++ run dyni /usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua select_random_ranges
++ prefix=dyni
++ powerLog=dyni-power.log
++ eventsLog=dyni-events.log
++ cpuUsageLog=dyni-cpuUsage.log
++ sysbenchLog=dyni.log
++ powerCsv=dyni-power.csv
++ eventsCsv=dyni-events.csv
++ cpuUsageCsv=dyni-cpuUsage.csv
++ sysbenchCsv=dyni.csv
++ rm -f dyni-power.log dyni-events.log dyni-cpuUsage.log dyni.log
++ rm -f dyni-power.csv dyni-events.csv dyni-cpuUsage.csv dyni.csv powerBaseline.csv
++ warmup
++ echo Performing warmup...
+Performing warmup...
++ checkDyniIsRunning
++ sleep 1
++ dyni -status
++ grep 'Dynimizer is running'
++ '[' 0 = 0 ']'
++ warmupCount=0
++ dynimizing=true
++ keepRunning=true
++ count=0
++ '[' 0 -lt 0 ']'
++ '[' 0 -eq 0 ']'
++ count=1
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=30 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
++ '[' true = true ']'
++ checkMysqldIsDynimized
++ sleep 1
+++ pidof mysqld
++ pid=14109
++ dyni -status
++ grep 'mysqld, pid: 14109, dynimized'
++ '[' 0 = 0 ']'
++ warmupCount=1
++ '[' 1 -lt 1 ']'
++ '[' 1 -eq 0 ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=1 for dyni
+run sysbench with --threads=1 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 14109, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=1 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=2 for dyni
+run sysbench with --threads=2 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 14109, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=2 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=4 for dyni
+run sysbench with --threads=4 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 14109, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=4 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=8 for dyni
+run sysbench with --threads=8 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 14109, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=8 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=16 for dyni
+run sysbench with --threads=16 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 14109, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=16 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=32 for dyni
+run sysbench with --threads=32 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 14109, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=64 for dyni
+run sysbench with --threads=64 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 14109, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=64 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=128 for dyni
+run sysbench with --threads=128 for dyni
++ dyni -status
+Dynimizer is running
+mysqld, pid: 14109, dynimized
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=128 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ awkCmd='{if(NR>1){print $1 "\t" $2/60}}'
++ cat dyni.log
++ egrep 'threads:|total number of events:'
++ sed 's/Number of threads: /\n/g'
++ tr -d '\n'
++ sed 's/total number of events://g'
++ awk '{if(NR>1){print $1 "\t" $2/60}}'
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ dyni -stop
+Dynimizer shutting down
++ echo RUN WITHOUT DYNIMIZER
+RUN WITHOUT DYNIMIZER
++ prepare
++ service mysqld restart
+Failed to restart mysqld.service: Unit mysqld.service not found.
++ service mysql restart
+++ pidof mysqld
++ renice -20 16415
+16415 (process ID) old priority 0, new priority -20
++ '[' false = true ']'
++ mysql -u root --password=password -e 'DROP DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -u root --password=password -e 'CREATE DATABASE test;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/parallel_prepare.lua --num-threads=8 --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --db-driver=mysql prepare
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.8 (using bundled LuaJIT 2.1.0-beta2)
+
+Creating table 'sbtest1'...
+Inserting 1000000 records into 'sbtest1'
+Creating secondary indexes on 'sbtest1'...
+Creating table 'sbtest2'...
+Inserting 1000000 records into 'sbtest2'
+Creating secondary indexes on 'sbtest2'...
+Creating table 'sbtest3'...
+Inserting 1000000 records into 'sbtest3'
+Creating secondary indexes on 'sbtest3'...
+Creating table 'sbtest4'...
+Inserting 1000000 records into 'sbtest4'
+Creating secondary indexes on 'sbtest4'...
+Creating table 'sbtest5'...
+Inserting 1000000 records into 'sbtest5'
+Creating secondary indexes on 'sbtest5'...
+Creating table 'sbtest6'...
+Inserting 1000000 records into 'sbtest6'
+Creating secondary indexes on 'sbtest6'...
+Creating table 'sbtest7'...
+Inserting 1000000 records into 'sbtest7'
+Creating secondary indexes on 'sbtest7'...
+Creating table 'sbtest8'...
+Inserting 1000000 records into 'sbtest8'
+Creating secondary indexes on 'sbtest8'...
+Creating table 'sbtest9'...
+Inserting 1000000 records into 'sbtest9'
+Creating secondary indexes on 'sbtest9'...
+Creating table 'sbtest10'...
+Inserting 1000000 records into 'sbtest10'
+Creating secondary indexes on 'sbtest10'...
++ run noDyni /usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua select_random_ranges
++ prefix=noDyni
++ powerLog=noDyni-power.log
++ eventsLog=noDyni-events.log
++ cpuUsageLog=noDyni-cpuUsage.log
++ sysbenchLog=noDyni.log
++ powerCsv=noDyni-power.csv
++ eventsCsv=noDyni-events.csv
++ cpuUsageCsv=noDyni-cpuUsage.csv
++ sysbenchCsv=noDyni.csv
++ rm -f noDyni-power.log noDyni-events.log noDyni-cpuUsage.log noDyni.log
++ rm -f noDyni-power.csv noDyni-events.csv noDyni-cpuUsage.csv noDyni.csv powerBaseline.csv
++ warmup
++ echo Performing warmup...
+Performing warmup...
++ checkDyniIsRunning
++ sleep 1
++ dyni -status
++ grep 'Dynimizer is running'
++ '[' 1 = 0 ']'
++ keepRunning=true
++ count=0
++ '[' 0 -lt 1 ']'
++ count=1
++ sysbench /usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=30 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
++ '[' true = true ']'
++ checkMysqldIsDynimized
++ sleep 1
+++ pidof mysqld
++ pid=16415
++ dyni -status
++ grep 'mysqld, pid: 16415, dynimized'
++ '[' 1 = 0 ']'
++ '[' 1 -lt 1 ']'
++ '[' 1 -eq 0 ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=1 for noDyni
+run sysbench with --threads=1 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=1 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=2 for noDyni
+run sysbench with --threads=2 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=2 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=4 for noDyni
+run sysbench with --threads=4 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=4 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=8 for noDyni
+run sysbench with --threads=8 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=8 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=16 for noDyni
+run sysbench with --threads=16 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=16 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=32 for noDyni
+run sysbench with --threads=32 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=32 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=64 for noDyni
+run sysbench with --threads=64 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=64 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ for i in 1 2 4 8 16 32 64 128
++ echo run sysbench with --threads=128 for noDyni
+run sysbench with --threads=128 for noDyni
++ dyni -status
+Dynimizer is not running
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ sysbench --test=/usr/share/sysbench/tests/include/oltp_legacy/select_random_ranges.lua --oltp-table-size=1000000 --oltp-tables-count=10 --mysql-db=test --mysql-user=root --mysql-password=password --time=60 --oltp-read-only=on --max-requests=0 --threads=128 --db-driver=mysql run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
++ '[' false = true ']'
++ awkCmd='{if(NR>1){print $1 "\t" $2/60}}'
++ cat noDyni.log
++ egrep 'threads:|total number of events:'
++ tr -d '\n'
++ sed 's/Number of threads: /\n/g'
++ sed 's/total number of events://g'
++ awk '{if(NR>1){print $1 "\t" $2/60}}'
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ echo plotting results .svg files
+plotting results .svg files
++ gnuplot sysbenchGraph
++ '[' false = true ']'
++ '[' false = true ']'
++ '[' false = true ']'
++ mv dyni.log dyni-select_random_ranges.log
++ mv noDyni.log noDyni-select_random_ranges.log
++ mv dyni-events.log dyni-events-select_random_ranges.log
++ mv noDyni-events.log noDyni-events-select_random_ranges.log
++ mv dyni-cpuUsage.log dyni-cpuUsage-select_random_ranges.log
++ mv noDyni-cpuUsage.log noDyni-cpuUsage-select_random_ranges.log
++ mv dyni-power.log dyni-power-select_random_ranges.log
++ mv noDyni-power.log noDyni-power-select_random_ranges.log
++ cp dyni.csv dyni-select_random_ranges.csv
++ cp noDyni.csv noDyni-select_random_ranges.csv
++ cp dyni-events.csv dyni-events-select_random_ranges.csv
++ cp noDyni-events.csv noDyni-events-select_random_ranges.csv
++ cp dyni-cpuUsage.csv dyni-cpuUsage-select_random_ranges.csv
++ cp noDyni-cpuUsage.csv noDyni-cpuUsage-select_random_ranges.csv
++ cp dyni-power.csv dyni-power-select_random_ranges.csv
++ cp noDyni-power.csv noDyni-power-select_random_ranges.csv
++ mv throughput.svg throughput-select_random_ranges.svg
++ mv IPC.svg IPC-select_random_ranges.svg
++ mv branchMisses.svg branchMisses-select_random_ranges.svg
++ mv icacheMisses.svg icacheMisses-select_random_ranges.svg
++ mv itlbMisses.svg itlbMisses-select_random_ranges.svg
++ mv transactionsPerCycle.svg transactionsPerCycle-select_random_ranges.svg
++ mv cpuUsage.svg cpuUsage-select_random_ranges.svg
++ mv cpuUsageRelativeChange.svg cpuUsageRelativeChange-select_random_ranges.svg
++ mv cpuUsageAbsoluteChange.svg cpuUsageAbsoluteChange-select_random_ranges.svg
++ mv power.svg power-select_random_ranges.svg
++ mv powerTotalRelativeChange.svg powerTotalRelativeChange-select_random_ranges.svg
++ mv powerTotalAbsoluteChange.svg powerTotalAbsoluteChange-select_random_ranges.svg
++ mv powerIsolateRelativeChange.svg powerIsolateRelativeChange-select_random_ranges.svg
++ sleep 60
++ plotConsolidated
++ gnuplot consolidateSysbenchGraph
++ '[' false = true ']'

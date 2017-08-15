@@ -1,0 +1,56 @@
+set terminal svg background rgb 'white' font 'Monospace,10' size 400,300
+set size 1,1
+set grid y
+set grid x
+set xlabel "Threads\n"
+set logscale x 2
+set key outside;
+set key bottom center;
+set notitle
+set datafile separator "\t"
+set format y '%2.1f%%
+
+
+#INSTRUCTIONS PER CYCLE:
+
+set output "IPCChange.svg"
+plot '< paste dyni-events-oltp.csv noDyni-events-oltp.csv' using 1:(100*(($2/$3)/($10/$11)-1)) with linesp title "oltp read-only" lt rgb "red" pt 5 ps 0.4, \
+'< paste dyni-events-oltp_simple.csv noDyni-events-oltp_simple.csv' using 1:(100*(($2/$3)/($10/$11)-1)) with linesp title "oltp-simple" lt rgb "green" pt 5 ps 0.4, \
+'< paste dyni-events-select.csv noDyni-events-select.csv' using 1:(100*(($2/$3)/($10/$11)-1)) with linesp title "select" lt rgb "orange" pt 5 ps 0.4, \
+'< paste dyni-events-select_random_ranges.csv noDyni-events-select_random_ranges.csv' using 1:(100*(($2/$3)/($10/$11)-1)) with linesp title "select-random-ranges" lt rgb "blue" pt 5 ps 0.4 \
+
+
+#BRANCH MISPREDICTIONS:
+
+set output "branchMissesChange.svg"
+plot '< paste dyni-events-oltp.csv noDyni-events-oltp.csv' using 1:(100*(($7/$8)/($15/$16)-1)) with linesp title "oltp read-only" lt rgb "red" pt 5 ps 0.4, \
+'< paste dyni-events-oltp_simple.csv noDyni-events-oltp_simple.csv' using 1:(100*(($7/$8)/($15/$16)-1)) with linesp title "oltp-simple" lt rgb "green" pt 5 ps 0.4, \
+'< paste dyni-events-select.csv noDyni-events-select.csv' using 1:(100*(($7/$8)/($15/$16)-1)) with linesp title "select" lt rgb "orange" pt 5 ps 0.4, \
+'< paste dyni-events-select_random_ranges.csv noDyni-events-select_random_ranges.csv' using 1:(100*(($7/$8)/($15/$16)-1)) with linesp title "select-random-ranges" lt rgb "blue" pt 5 ps 0.4 \
+
+
+#INSTRUCTION CACHE MISSES
+
+set output "icacheMisses.svg"
+plot '< paste dyni-events-oltp.csv noDyni-events-oltp.csv' using 1:(100*(($4/$5)/($12/$13)-1)) with linesp title "oltp read-only" lt rgb "red" pt 5 ps 0.4, \
+'< paste dyni-events-oltp_simple.csv noDyni-events-oltp_simple.csv' using 1:(100*(($4/$5)/($12/$13)-1)) with linesp title "oltp-simple" lt rgb "green" pt 5 ps 0.4, \
+'< paste dyni-events-select.csv noDyni-events-select.csv' using 1:(100*(($4/$5)/($12/$13)-1)) with linesp title "select" lt rgb "orange" pt 5 ps 0.4, \
+'< paste dyni-events-select_random_ranges.csv noDyni-events-select_random_ranges.csv' using 1:(100*(($4/$5)/($12/$13)-1)) with linesp title "select-random-ranges" lt rgb "blue" pt 5 ps 0.4 \
+
+
+#INSTRUCTION TRANSLATION LOOKASIDE BUFFER MISSES 
+
+set output "itlbMissesChange.svg"
+plot '< paste dyni-events-oltp.csv noDyni-events-oltp.csv' using 1:(100*(($6/$5)/($14/$13)-1)) with linesp title "oltp read-only" lt rgb "red" pt 5 ps 0.4, \
+'< paste dyni-events-oltp_simple.csv noDyni-events-oltp_simple.csv' using 1:(100*(($6/$5)/($14/$13)-1)) with linesp title "oltp-simple" lt rgb "green" pt 5 ps 0.4, \
+'< paste dyni-events-select.csv noDyni-events-select.csv' using 1:(100*(($6/$5)/($14/$13)-1)) with linesp title "select" lt rgb "orange" pt 5 ps 0.4, \
+'< paste dyni-events-select_random_ranges.csv noDyni-events-select_random_ranges.csv' using 1:(100*(($6/$5)/($14/$13)-1)) with linesp title "select-random-ranges" lt rgb "blue" pt 5 ps 0.4 \
+
+
+#TRANSACTIONS PER CYCLE
+
+set output "transactionsPerCycleChange.svg"
+plot '< paste dyni-oltp.csv dyni-events-oltp.csv noDyni-oltp.csv noDyni-events-oltp.csv' using 1:(100*(($2/$5)/($12/$15))-100) with linesp title "oltp read-only" lt rgb "red" pt 5 ps 0.4, \
+'< paste dyni-oltp_simple.csv dyni-events-oltp_simple.csv noDyni-oltp_simple.csv noDyni-events-oltp_simple.csv' using 1:(100*(($2/$5)/($12/$15))-100) with linesp title "oltp-simple" lt rgb "green" pt 5 ps 0.4, \
+'< paste dyni-select.csv dyni-events-select.csv noDyni-select.csv noDyni-events-select.csv' using 1:(100*(($2/$5)/($12/$15))-100) with linesp title "select" lt rgb "orange" pt 5 ps 0.4, \
+'< paste dyni-select_random_ranges.csv dyni-events-select_random_ranges.csv noDyni-select_random_ranges.csv noDyni-events-select_random_ranges.csv' using 1:(100*(($2/$5)/($12/$15))-100) with linesp title "select-random-ranges" lt rgb "blue" pt 5 ps 0.4 \

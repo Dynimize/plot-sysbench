@@ -1,0 +1,47 @@
+set terminal svg background rgb 'white' font 'Monospace,10' size 400,300
+set size 1,1
+set grid y
+set grid x
+set xlabel "Threads\n"
+set logscale x 2
+set key outside;
+set key center bottom;
+set notitle
+set datafile separator "\t"
+
+#INSTRUCTIONS PER CYCLE:
+set output "IPC.svg
+#set ylabel "Instructions Per Cycle (IPC)"
+
+plot "dyni-events.csv" using 1:($2/$3) with linesp title "WITH Dynimizer" lt rgb "#0066FF" pt 5 ps 0.4, \
+"noDyni-events.csv" using 1:($2/$3) with linesp title "WITHOUT Dynimizer" lt rgb "#595959" pt 5 ps 0.4 \
+
+
+set format y '%2.1f%%
+
+
+#BRANCH MISPREDICTIONS:
+set output "branchMisses.svg"
+#set ylabel "Conditional Branch \nMisprediction Rate"
+
+plot "dyni-events.csv" using 1:(100*$7/$8) with linesp title "WITH Dynimizer" lt rgb "#0066FF" pt 5 ps 0.4, \
+"noDyni-events.csv" using 1:(100*$7/$8) with linesp title "WITHOUT Dynimizer" lt rgb "#595959" pt 5 ps 0.4 \
+
+
+
+#INSTRUCTION CACHE MISSES
+set output "icacheMisses.svg"
+#set ylabel "L1 Instruction Cache Miss Rate"
+
+plot "dyni-events.csv" using 1:(100*$4/$5) with linesp title "WITH Dynimizer" lt rgb "#0066FF" pt 5 ps 0.4, \
+"noDyni-events.csv" using 1:(100*$4/$5) with linesp title "WITHOUT Dynimizer" lt rgb "#595959" pt 5 ps 0.4 \
+
+
+
+#INSTRUCTION TRANSLATION LOOKASIDE BUFFER MISSES
+set output "itlbMisses.svg"
+#set ylabel "ITLB Miss Rate"
+
+plot "dyni-events.csv" using 1:(100*$6/$5) with linesp title "WITH Dynimizer" lt rgb "#0066FF" pt 5 ps 0.4, \
+"noDyni-events.csv" using 1:(100*$6/$5) with linesp title "WITHOUT Dynimizer" lt rgb "#595959" pt 5 ps 0.4 \
+

@@ -1,0 +1,36 @@
+set terminal svg background rgb 'white'  
+set size 1,1
+set grid y
+set grid x
+set xlabel "Threads\n"
+set key
+set logscale x 2
+set key outside;
+set key center bottom;
+set format y '%2.1f W'
+set ylabel "Watts"
+
+set output "power.svg"
+set title "Power Consumption"
+
+plot "dyni-power.csv" using ($1):($2/1000000):xtic(1) with linesp title "WITH Dynimizer" lt rgb "blue" pt 5 ps 0.5, \
+"noDyni-power.csv" using ($1):($2/1000000):xtic(1) with linesp title "WITHOUT Dynimizer" lt rgb "#595959" pt 5 ps 0.5 \
+
+set output "powerTotalAbsoluteChange.svg"
+set title "Absolute Change In Total System Power (With Dynimizer - Without Dynimizer)"
+
+plot '< paste dyni-power.csv noDyni-power.csv' using 1:(($2-$4)/1000000) with linesp notitle lt rgb "green" pt 5 ps 0.5
+
+set format y '%2.1f%%
+
+set output "powerTotalRelativeChange.svg"
+set title "Relative Change In Total System Power (With Dynimizer/Without Dynimizer)"
+set ylabel ""
+
+plot '< paste dyni-power.csv noDyni-power.csv' using 1:(100*($2/$4)-100) with linesp notitle lt rgb "green" pt 5 ps 0.5
+
+set output "powerIsolateRelativeChange.svg"
+set title "Relative Change In System Power from Sysbench + MySQL load \n(With Dynimizer/Without Dynimizer)"
+
+plot '< paste dyni-power.csv noDyni-power.csv powerBaseline.csv' using 1:(100*(($2-$5)/($4-$5))-100) with linesp notitle lt rgb "green" pt 5 ps 0.5
+

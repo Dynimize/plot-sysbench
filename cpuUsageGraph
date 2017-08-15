@@ -1,0 +1,27 @@
+set terminal svg background rgb 'white'  
+set size 1,1
+set grid y
+set grid x
+set xlabel "Threads"
+set ylabel ""
+set key
+set logscale x 2
+set key outside;
+set key center bottom;
+set format y '%2.0f%%
+
+set output "cpuUsage.svg"
+set title "CPU Usage"
+
+plot "dyni-cpuUsage.csv" using ($1):2:xtic(1) with linesp title "WITH Dynimizer" lt rgb "blue" pt 5 ps 0.5, \
+"noDyni-cpuUsage.csv" using ($1):2:xtic(1) with linesp title "WITHOUT Dynimizer" lt rgb "#595959" pt 5 ps 0.5 \
+
+set output "cpuUsageRelativeChange.svg"
+set title "Relative Change In CPU Usage (With Dynimizer/Without Dynimizer)"
+
+plot '< paste dyni-cpuUsage.csv noDyni-cpuUsage.csv' using 1:(100*($2/$4)-100) with linesp notitle lt rgb "green" pt 5 ps 0.5
+
+set output "cpuUsageAbsoluteChange.svg"
+set title "Absolute Change In CPU Usage (With Dynimizer - Without Dynimizer)"
+
+plot '< paste dyni-cpuUsage.csv noDyni-cpuUsage.csv' using 1:($2-$4) with linesp notitle lt rgb "green" pt 5 ps 0.5

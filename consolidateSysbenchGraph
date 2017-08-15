@@ -1,0 +1,18 @@
+set terminal svg background rgb 'white' font 'Monospace,10' size 400,300
+set size 1,1
+set grid y
+set grid x
+set xlabel "Threads\n"
+set key
+set logscale x 2
+set key outside;
+set key center bottom;
+set format y '%2.0f%%
+set output "speedup.svg"
+
+#Speedup/Improvment
+
+plot '< paste dyni-oltp.csv noDyni-oltp.csv' using 1:(100*$2/$4-100) with linesp title "oltp read-only" lt rgb "red" pt 5 ps 0.4, \
+'< paste dyni-oltp_simple.csv noDyni-oltp_simple.csv' using 1:(100*$2/$4-100) with linesp title "oltp-simple" lt rgb "green" pt 5 ps 0.4, \
+'< paste dyni-select.csv noDyni-select.csv' using 1:(100*$2/$4-100) with linesp title "select" lt rgb "orange" pt 5 ps 0.4, \
+'< paste dyni-select_random_ranges.csv noDyni-select_random_ranges.csv' using 1:(100*$2/$4-100) with linesp title "select-random-ranges" lt rgb "blue" pt 5 ps 0.4 \

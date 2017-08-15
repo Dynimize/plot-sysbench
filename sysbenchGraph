@@ -1,0 +1,21 @@
+set terminal svg background rgb 'white' font 'Monospace,10' size 400,300
+
+set size 1,1
+set grid y
+set grid x
+set xlabel "Threads"
+set key
+set logscale x 2
+set key outside;
+set key center bottom;
+
+
+
+#Transactions/throughput
+
+set output "throughput.svg"
+set ylabel "Transactions/Second"
+
+plot "dyni.csv" using ($1):2:xtic(1) with linesp title "WITH Dynimizer" lt rgb "#0066FF" pt 5 ps 0.5, \
+"noDyni.csv" using ($1):2:xtic(1) with linesp title "WITHOUT Dynimizer" lt rgb "#595959" pt 5 ps 0.5 \
+
