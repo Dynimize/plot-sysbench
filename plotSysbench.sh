@@ -14,8 +14,8 @@ user="root"
 readOnly="on"
 measureTime=60
 warmupIncrementTime=30
-events="true" #Requires PMU enablement and perf to be installed and working
-#events="false"
+#events="true" #Requires PMU enablement and perf to be installed and working
+events="false"
 pathToLuas="/usr/share/sysbench/tests/include/oltp_legacy" #Relative path to lua scripts 
 #cpuUsage="true"
 cpuUsage="false"
@@ -467,11 +467,11 @@ function replotGraphs
 dyni -stop
 tasksetVars
 initPowerBaseline
-#runAndPlot $oltpTest oltp
-#runAndPlot $oltp_simpleTest oltp_simple
-#runAndPlot $selectTest select
+runAndPlot $oltpTest oltp
+runAndPlot $oltp_simpleTest oltp_simple
+runAndPlot $selectTest select
 #runAndPlot $select_random_pointsTest select_random_points
-#runAndPlot $select_random_rangesTest select_random_ranges
+runAndPlot $select_random_rangesTest select_random_ranges
 
 #The following tests can be I/O bound on some systems. If that is the case
 #it will take a very long time for them to dynimize. 
@@ -482,10 +482,10 @@ initPowerBaseline
 #runAndPlot $update_indexTest update_index
 #runAndPlot $update_non_indexTest update_non_index
 
-replotGraphs $oltpTest oltp
-replotGraphs $oltp_simpleTest oltp_simple
-replotGraphs $selectTest select
+#replotGraphs $oltpTest oltp
+#replotGraphs $oltp_simpleTest oltp_simple
+#replotGraphs $selectTest select
 #replotGraphs $select_random_pointsTest select_random_points
-replotGraphs $select_random_rangesTest select_random_ranges
+#replotGraphs $select_random_rangesTest select_random_ranges
 
 plotConsolidated
